@@ -47,4 +47,24 @@ export class Channel {
     if(response.status === 200) return "success"
     throw response.statusText
   }
+
+  async sendUrlMedia(mediaUrl: string, to: string, caption?: string): Promise<string>{
+    const options = {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${this.token}`,
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        to,
+        media: mediaUrl,
+        caption
+      }),
+    };
+    const url = "https://gate.whapi.cloud/messages/image";
+    const response = await fetch(url, options);
+    if(response.status === 200) return "success"
+    throw response.statusText
+  }
 }
